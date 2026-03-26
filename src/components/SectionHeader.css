@@ -1,0 +1,41 @@
+/* ========================================
+   SECTION HEADER COMPONENT
+   ======================================== */
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  /* Increased gap for better breathing room */
+  margin-bottom: 3.5rem;
+  /* Standardized margin */
+}
+
+.section-header-icon {
+  position: relative;
+  color: var(--color-alabaster);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1; /* Match user preference if they want it more visible */
+}
+
+.section-header-icon::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--color-ocean-500);
+}
+
+.section-header-title {
+  font-size: 2.2rem;
+  line-height: 1.1;
+  letter-spacing: 0.05em;
+  font-weight: 300;
+  color: var(--color-alabaster);
+  text-transform: uppercase;
+  margin: 0;
+}

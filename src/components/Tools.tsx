@@ -1,6 +1,6 @@
-import React from 'react';
 import { IconDeviceDesktop } from '@tabler/icons-react';
 import { useLanguage } from '../context/LanguageContext';
+import SectionHeader from './SectionHeader';
 
 type Tool = {
   name: string;
@@ -20,31 +20,31 @@ const Tools: React.FC = () => {
       title: t.tools.categories.design,
       tools: [
         { name: "Illustrator", icon: `${import.meta.env.BASE_URL}assets/tools-icons/illustrator.svg` },
-        { name: "Photoshop",   icon: `${import.meta.env.BASE_URL}assets/tools-icons/photoshop.svg` },
-        { name: "Figma",       icon: `${import.meta.env.BASE_URL}assets/tools-icons/figma.svg` },
-        { name: "Word",        icon: `${import.meta.env.BASE_URL}assets/tools-icons/word.svg` },
-        { name: "PowerPoint",  icon: `${import.meta.env.BASE_URL}assets/tools-icons/powerpoint.svg` },
-        { name: "CorelDraw",   icon: `${import.meta.env.BASE_URL}assets/tools-icons/coreldraw.svg` },
+        { name: "Photoshop", icon: `${import.meta.env.BASE_URL}assets/tools-icons/photoshop.svg` },
+        { name: "Figma", icon: `${import.meta.env.BASE_URL}assets/tools-icons/figma.svg` },
+        { name: "Word", icon: `${import.meta.env.BASE_URL}assets/tools-icons/word.svg` },
+        { name: "PowerPoint", icon: `${import.meta.env.BASE_URL}assets/tools-icons/powerpoint.svg` },
+        { name: "CorelDraw", icon: `${import.meta.env.BASE_URL}assets/tools-icons/coreldraw.svg` },
       ]
     },
     {
       title: t.tools.categories.protoptyping,
       tools: [
-        { name: "Blender",    icon: `${import.meta.env.BASE_URL}assets/tools-icons/blender.svg` },
+        { name: "Blender", icon: `${import.meta.env.BASE_URL}assets/tools-icons/blender.svg` },
         { name: "Fusion 360", icon: `${import.meta.env.BASE_URL}assets/tools-icons/fusion360.svg` },
-        { name: "VS Code",    icon: `${import.meta.env.BASE_URL}assets/tools-icons/vs_code.svg` },
-        { name: "Cura",       icon: `${import.meta.env.BASE_URL}assets/tools-icons/cura.svg` },
+        { name: "VS Code", icon: `${import.meta.env.BASE_URL}assets/tools-icons/vs_code.svg` },
+        { name: "Cura", icon: `${import.meta.env.BASE_URL}assets/tools-icons/cura.svg` },
       ]
     },
     {
       title: t.tools.categories.ai,
       tools: [
-        { name: "Monday",  icon: `${import.meta.env.BASE_URL}assets/tools-icons/monday.svg` },
-        { name: "Teams",   icon: `${import.meta.env.BASE_URL}assets/tools-icons/teams.svg` },
+        { name: "Monday", icon: `${import.meta.env.BASE_URL}assets/tools-icons/monday.svg` },
+        { name: "Teams", icon: `${import.meta.env.BASE_URL}assets/tools-icons/teams.svg` },
         { name: "ChatGPT", icon: `${import.meta.env.BASE_URL}assets/tools-icons/gpt.svg` },
         { name: "Copilot", icon: `${import.meta.env.BASE_URL}assets/tools-icons/copilot.svg` },
-        { name: "Gemini",  icon: `${import.meta.env.BASE_URL}assets/tools-icons/gemini.svg` },
-        { name: "Lovart",  icon: `${import.meta.env.BASE_URL}assets/tools-icons/lovart.svg` },
+        { name: "Gemini", icon: `${import.meta.env.BASE_URL}assets/tools-icons/gemini.svg` },
+        { name: "Lovart", icon: `${import.meta.env.BASE_URL}assets/tools-icons/lovart.svg` },
       ]
     },
     {
@@ -60,10 +60,10 @@ const Tools: React.FC = () => {
     <section className="tools-section" id='tools'>
       <div className="tools-container">
 
-        <div className="tools-header">
-          <IconDeviceDesktop size={28} className="text-alabaster" />
-          <h2 className="tools-title">{t.tools.title}</h2>
-        </div>
+        <SectionHeader
+          icon={<IconDeviceDesktop size={36} />}
+          title={t.tools.title}
+        />
 
         <div className="tools-grid">
           {toolCategories.map((category, idx) => (
