@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { 
-  IconPlanet, 
-  IconMenu2, 
-  IconX, 
-  IconHome, 
-  IconUser, 
-  IconTools, 
-  IconHistory, 
-  IconPlant 
+import {
+  IconPlanet,
+  IconMenu2,
+  IconX,
+  IconHome,
+  IconUser,
+  IconTools,
+  IconHistory,
+  IconPlant
 } from '@tabler/icons-react';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -53,14 +53,19 @@ const Navbar: React.FC = () => {
     });
 
     return () => observer.disconnect();
-  }, [t]); 
+  }, [t]);
 
   return (
     <nav className="navbar">
       <div className="navbar-container">
         {/* Logo Area */}
         <div className="navbar-logo">
-          <IconPlanet size={32} className="text-ocean-500" />
+          <img
+            src={`${import.meta.env.BASE_URL}assets/logo.svg`}
+            alt="Logo"
+            className="navbar-logo-img"
+            style={{ height: '40px', width: 'auto' }}
+          />
         </div>
 
         {/* Desktop Links */}
@@ -85,8 +90,8 @@ const Navbar: React.FC = () => {
             </button>
           </div>
 
-          <div 
-            className="navbar-lang-switch" 
+          <div
+            className="navbar-lang-switch"
             onClick={toggleLanguage}
             title={language === 'en' ? 'Mudar para Português' : 'Switch to English'}
           >
@@ -105,15 +110,19 @@ const Navbar: React.FC = () => {
       </div>
 
       {/* Drawer Overlay */}
-      <div 
-        className={`navbar-overlay ${isMenuOpen ? 'open' : ''}`} 
+      <div
+        className={`navbar-overlay ${isMenuOpen ? 'open' : ''}`}
         onClick={closeMenu}
       />
 
       {/* Drawer Sidebar */}
       <div className={`navbar-drawer ${isMenuOpen ? 'open' : ''}`}>
         <div className="drawer-header">
-          <IconPlanet size={32} className="text-ocean-500" />
+          <img
+            src={`${import.meta.env.BASE_URL}assets/logo.svg`}
+            alt="Logo"
+            style={{ height: '48px', width: 'auto' }}
+          />
           <button className="text-alabaster" onClick={closeMenu}>
             <IconX size={28} />
           </button>
