@@ -165,7 +165,7 @@
 
 .about-waves-wrapper {
   position: absolute;
-  bottom: 0;
+  bottom: 10rem;
   width: 100%;
   z-index: 0;
   opacity: 1;

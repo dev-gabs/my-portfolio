@@ -1,4 +1,4 @@
-import { IconUser, IconBrandInstagram, IconBrandLinkedin, IconMail } from '@tabler/icons-react';
+import { IconUserSquareRounded, IconBrandInstagram, IconBrandLinkedin, IconMail } from '@tabler/icons-react';
 import { useLanguage } from '../context/LanguageContext';
 import SectionHeader from './SectionHeader';
 
@@ -16,7 +16,7 @@ const AboutMe: React.FC = () => {
         {/* Left Text Content */}
         <div className="about-text-content">
           <SectionHeader
-            icon={<IconUser size={36} />}
+            icon={<IconUserSquareRounded />}
             title={t.about.title}
           />
 

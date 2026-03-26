@@ -61,7 +61,7 @@ const Tools: React.FC = () => {
       <div className="tools-container">
 
         <SectionHeader
-          icon={<IconDeviceDesktop size={36} />}
+          icon={<IconDeviceDesktop />}
           title={t.tools.title}
         />
 

@@ -7,10 +7,18 @@ interface SectionHeaderProps {
 }
 
 const SectionHeader: React.FC<SectionHeaderProps> = ({ icon, title }) => {
+  // Clone element to apply standard icon properties if icon is a valid React element
+  const iconWithStyles = React.isValidElement(icon)
+    ? React.cloneElement(icon as React.ReactElement<any>, {
+        size: 36,
+        stroke: 1.25,
+      })
+    : icon;
+
   return (
     <div className="section-header">
       <div className="section-header-icon">
-        {icon}
+        {iconWithStyles}
       </div>
       <h2 className="section-header-title">
         {title}
