@@ -1,0 +1,152 @@
+/* ========================================
+   TOOLS
+   ======================================== */
+
+.tools-section {
+  width:            100%;
+  padding:          6rem 0;
+  background-color: var(--color-portfolio-bg);
+  border-top:       1px solid color-mix(in srgb, var(--color-ocean-500) 10%, transparent);
+}
+
+/* ---------------------------------------- */
+
+.tools-container {
+  max-width: 1440px;
+  margin:    0 auto;
+  padding:   0 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .tools-container {
+    padding: 0 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tools-container {
+    padding: 0 6rem;
+  }
+}
+
+/* ---------------------------------------- */
+
+.tools-header {
+  display:       flex;
+  align-items:   center;
+  gap:           0.75rem;
+  margin-bottom: 4rem;
+}
+
+/* ---------------------------------------- */
+
+.tools-title {
+  font-size:      1.5rem;
+  line-height:    2rem;
+  letter-spacing: 0.1em;
+  font-weight:    300;
+  color:          var(--color-alabaster);
+}
+
+/* ---------------------------------------- */
+
+.tools-grid {
+  display:               grid;
+  gap:                   3rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+@media (min-width: 768px) {
+  .tools-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .tools-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* ---------------------------------------- */
+
+.tools-category {
+  display:        flex;
+  flex-direction: column;
+  gap:            1.5rem;
+}
+
+/* ---------------------------------------- */
+
+.tools-category-title {
+  font-size:     0.875rem;
+  font-weight:   300;
+  color:         color-mix(in srgb, var(--color-alabaster) 80%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-ocean-500) 20%, transparent);
+  padding-bottom: 1rem;
+}
+
+/* ---------------------------------------- */
+
+.tools-items {
+  display:               grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  row-gap:               2rem;
+  column-gap:            1rem;
+}
+
+/* ---------------------------------------- */
+
+.tool-card {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  gap:            0.75rem;
+  cursor:         pointer;
+}
+
+/* ---------------------------------------- */
+
+.tool-icon-wrapper {
+  width:            4.5rem;
+  height:           4.5rem;
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+  border-radius:    1rem;
+  background:       linear-gradient(to bottom right, rgba(255,255,255,0.05), rgba(255,255,255,0));
+  border:           1px solid rgba(255, 255, 255, 0.05);
+  transition:       background-color 300ms ease, transform 300ms ease;
+  overflow:         hidden;
+}
+
+.tool-svg-icon {
+  width:      auto;
+  height:     auto;
+  max-width:  55%;
+  max-height: 55%;
+  object-fit: contain;
+  transition: transform 300ms ease;
+}
+
+.tool-card:hover .tool-svg-icon {
+  transform: scale(1.1);
+}
+
+.tool-card:hover .tool-icon-wrapper {
+  background-color: rgba(255, 255, 255, 0.10);
+  transform:        scale(1.05);
+}
+
+/* ---------------------------------------- */
+
+.tool-name {
+  font-size:   0.75rem;
+  font-weight: 300;
+  color:       color-mix(in srgb, var(--color-alabaster) 60%, transparent);
+  transition:  color 150ms ease;
+}
+
+.tool-card:hover .tool-name {
+  color: var(--color-alabaster);
+}

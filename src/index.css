@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@import "./components/Navbar.css";
+@import "./components/Hero.css";
+@import "./components/AboutMe.css";
+@import "./components/Tools.css";
+@import "./components/Footer.css";
+
+/* ========================================
+   THEME TOKENS
+   ======================================== */
+
+@theme {
+  --navbar-height: 72px;
+
+  --color-alabaster: #E0E1DD;
+  --color-warm-200: #C78353;
+  --color-warm: #E0D0B6;
+  --color-ocean-500: #ABC4E3;
+  --color-ocean-400: #778DA9;
+  --color-ocean-300: #415A77;
+  --color-ocean-200: #1B263B;
+  --color-ocean-100: #0D1B2A;
+  --color-portfolio-bg: #07090A;
+
+  --font-sans: "Outfit", sans-serif;
+}
+
+/* ========================================
+   BASE STYLES
+   ======================================== */
+
+html {
+  background-color: #000000;
+  scroll-behavior: smooth;
+}
+
+body {
+  max-width: 1440px;
+  margin: 0 auto;
+  background-color: var(--color-portfolio-bg);
+  color: var(--color-alabaster);
+  font-family: var(--font-sans);
+  border: 1px solid rgba(76, 76, 76, 0.8);
+}

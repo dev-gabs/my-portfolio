@@ -1,0 +1,22 @@
+/* ========================================
+   FOOTER
+   ======================================== */
+
+.footer-section {
+  width:            100%;
+  padding:          2rem 0;
+  background-color: var(--color-portfolio-bg);
+  border-top:       1px solid color-mix(in srgb, var(--color-ocean-500) 10%, transparent);
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+}
+
+/* ---------------------------------------- */
+
+.footer-text {
+  font-size:      0.75rem;
+  font-weight:    300;
+  letter-spacing: 0.1em;
+  color:          color-mix(in srgb, var(--color-alabaster) 40%, transparent);
+}
