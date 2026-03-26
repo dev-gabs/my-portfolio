@@ -11,6 +11,7 @@
   display: flex;
   align-items: center;
   background-color: var(--color-portfolio-bg);
+  border-bottom: 3px solid var(--color-warm);
 }
 
 @media (min-width: 1024px) {
@@ -28,6 +29,13 @@
   height: 100%;
   background-size: cover;
   background-position: right center;
+  opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  .hero-bg {
+    opacity: 0.2;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -108,8 +116,9 @@
 
 .text-name {
   font-weight: 700;
-  background: linear-gradient(to right, #ff7e5f, #feb47b);
+  background: linear-gradient(to right, var(--color-warm), var(--color-ocean-600));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -148,7 +157,7 @@
 .hero-actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 /* ---------------------------------------- */
@@ -160,6 +169,8 @@
   color: var(--color-alabaster);
   font-weight: 300;
   transition: background-color 150ms ease;
+  backdrop-filter: blur(24px);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--color-alabaster) 30%, transparent);
 }
 
 .hero-btn-resume:hover {
@@ -176,6 +187,8 @@
   color: var(--color-alabaster);
   font-weight: 300;
   transition: background-color 150ms ease;
+  backdrop-filter: blur(24px);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--color-ocean-500) 30%, transparent);
 }
 
 .hero-btn-portfolio:hover {

@@ -6,10 +6,11 @@
   width: 100%;
   padding: 6rem 0;
   background-color: var(--color-portfolio-bg);
-  border-top: 1px solid color-mix(in srgb, var(--color-ocean-500) 10%, transparent);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  border-bottom: 3px solid var(--color-warm-200);
+
 }
 
 /* ---------------------------------------- */
