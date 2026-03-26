@@ -19,39 +19,39 @@ const Tools: React.FC = () => {
     {
       title: t.tools.categories.design,
       tools: [
-        { name: "Illustrator", icon: "/assets/tools-icons/illustrator.svg" },
-        { name: "Photoshop",   icon: "/assets/tools-icons/photoshop.svg" },
-        { name: "Figma",       icon: "/assets/tools-icons/figma.svg" },
-        { name: "Word",        icon: "/assets/tools-icons/word.svg" },
-        { name: "PowerPoint",  icon: "/assets/tools-icons/powerpoint.svg" },
-        { name: "CorelDraw",   icon: "/assets/tools-icons/coreldraw.svg" },
+        { name: "Illustrator", icon: `${import.meta.env.BASE_URL}assets/tools-icons/illustrator.svg` },
+        { name: "Photoshop",   icon: `${import.meta.env.BASE_URL}assets/tools-icons/photoshop.svg` },
+        { name: "Figma",       icon: `${import.meta.env.BASE_URL}assets/tools-icons/figma.svg` },
+        { name: "Word",        icon: `${import.meta.env.BASE_URL}assets/tools-icons/word.svg` },
+        { name: "PowerPoint",  icon: `${import.meta.env.BASE_URL}assets/tools-icons/powerpoint.svg` },
+        { name: "CorelDraw",   icon: `${import.meta.env.BASE_URL}assets/tools-icons/coreldraw.svg` },
       ]
     },
     {
       title: t.tools.categories.protoptyping,
       tools: [
-        { name: "Blender",    icon: "/assets/tools-icons/blender.svg" },
-        { name: "Fusion 360", icon: "/assets/tools-icons/fusion360.svg" },
-        { name: "VS Code",    icon: "/assets/tools-icons/vs_code.svg" },
-        { name: "Cura",       icon: "/assets/tools-icons/cura.svg" },
+        { name: "Blender",    icon: `${import.meta.env.BASE_URL}assets/tools-icons/blender.svg` },
+        { name: "Fusion 360", icon: `${import.meta.env.BASE_URL}assets/tools-icons/fusion360.svg` },
+        { name: "VS Code",    icon: `${import.meta.env.BASE_URL}assets/tools-icons/vs_code.svg` },
+        { name: "Cura",       icon: `${import.meta.env.BASE_URL}assets/tools-icons/cura.svg` },
       ]
     },
     {
       title: t.tools.categories.ai,
       tools: [
-        { name: "Monday",  icon: "/assets/tools-icons/monday.svg" },
-        { name: "Teams",   icon: "/assets/tools-icons/teams.svg" },
-        { name: "ChatGPT", icon: "/assets/tools-icons/gpt.svg" },
-        { name: "Copilot", icon: "/assets/tools-icons/copilot.svg" },
-        { name: "Gemini",  icon: "/assets/tools-icons/gemini.svg" },
-        { name: "Lovart",  icon: "/assets/tools-icons/lovart.svg" },
+        { name: "Monday",  icon: `${import.meta.env.BASE_URL}assets/tools-icons/monday.svg` },
+        { name: "Teams",   icon: `${import.meta.env.BASE_URL}assets/tools-icons/teams.svg` },
+        { name: "ChatGPT", icon: `${import.meta.env.BASE_URL}assets/tools-icons/gpt.svg` },
+        { name: "Copilot", icon: `${import.meta.env.BASE_URL}assets/tools-icons/copilot.svg` },
+        { name: "Gemini",  icon: `${import.meta.env.BASE_URL}assets/tools-icons/gemini.svg` },
+        { name: "Lovart",  icon: `${import.meta.env.BASE_URL}assets/tools-icons/lovart.svg` },
       ]
     },
     {
       title: t.tools.categories.video,
       tools: [
-        { name: "DaVinci", icon: "/assets/tools-icons/davinci.svg" },
-        { name: "Ableton", icon: "/assets/tools-icons/ableton.svg" },
+        { name: "DaVinci", icon: `${import.meta.env.BASE_URL}assets/tools-icons/davinci.svg` },
+        { name: "Ableton", icon: `${import.meta.env.BASE_URL}assets/tools-icons/ableton.svg` },
       ]
     }
   ];

@@ -51,7 +51,7 @@ const AboutMe: React.FC = () => {
             {/* Dark overlay from bottom to blend the image into the background */}
             <div className="about-image-overlay" />
             <img 
-              src="/assets/my-photo.png" 
+              src={`${import.meta.env.BASE_URL}assets/my-photo.png`} 
               alt="Gabriel Salvador" 
               className="about-image"
             />
@@ -63,7 +63,7 @@ const AboutMe: React.FC = () => {
       {/* Decorative Wavy Line Base from SVG Asset */}
       <div className="about-waves-wrapper">
         <img 
-          src="/assets/waves-aboutme.svg" 
+          src={`${import.meta.env.BASE_URL}assets/waves-aboutme.svg`} 
           alt="Wavy decoration" 
           className="about-waves-img"
         />
