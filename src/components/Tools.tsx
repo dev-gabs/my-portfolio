@@ -57,7 +57,11 @@ const Tools: React.FC = () => {
   ];
 
   return (
-    <section className="tools-section" id='tools'>
+    <section
+      className="tools-section"
+      id='tools'
+      style={{ backgroundImage: `url('${import.meta.env.BASE_URL}assets/tools-bg.png')` }}
+    >
       <div className="tools-container">
 
         <SectionHeader

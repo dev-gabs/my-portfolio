@@ -1,20 +1,33 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { IconPlanet } from '@tabler/icons-react';
+import { 
+  IconPlanet, 
+  IconMenu2, 
+  IconX, 
+  IconHome, 
+  IconUser, 
+  IconTools, 
+  IconHistory, 
+  IconPlant 
+} from '@tabler/icons-react';
 import { useLanguage } from '../context/LanguageContext';
 
 const Navbar: React.FC = () => {
   const { language, toggleLanguage, t } = useLanguage();
   const [activeHref, setActiveHref] = useState('#home');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   // Track the intersection ratio of each section
   const ratiosRef = useRef<Record<string, number>>({});
 
   const links = [
-    { href: '#home', label: t.nav.home },
-    { href: '#about', label: t.nav.about },
-    { href: '#tools', label: t.nav.tools },
-    { href: '#story', label: t.nav.story },
-    { href: '#eden', label: t.nav.eden },
+    { href: '#home', label: t.nav.home, icon: <IconHome size={20} stroke={1.5} /> },
+    { href: '#about', label: t.nav.about, icon: <IconUser size={20} stroke={1.5} /> },
+    { href: '#tools', label: t.nav.tools, icon: <IconTools size={20} stroke={1.5} /> },
+    { href: '#story', label: t.nav.story, icon: <IconHistory size={20} stroke={1.5} /> },
+    { href: '#eden', label: t.nav.eden, icon: <IconPlant size={20} stroke={1.5} /> },
   ];
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const closeMenu = () => setIsMenuOpen(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -24,7 +37,7 @@ const Navbar: React.FC = () => {
           ratiosRef.current[id] = entry.intersectionRatio;
         });
 
-        const best = Object.entries(ratiosRef.current).reduce(
+        const best = Object.entries(ratiosRef.current).reduce<{ id: string; ratio: number }>(
           (acc, [id, ratio]) => (ratio > acc.ratio ? { id, ratio } : acc),
           { id: '', ratio: -1 }
         );
@@ -83,12 +96,49 @@ const Navbar: React.FC = () => {
           </div>
         </div>
 
-        {/* Mobile Menu Icon */}
+        {/* Mobile/Tablet Menu Icon */}
         <div className="navbar-mobile-icon">
-          <button className="text-alabaster">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
-            </svg>
+          <button className="text-alabaster" onClick={toggleMenu}>
+            <IconMenu2 size={28} />
+          </button>
+        </div>
+      </div>
+
+      {/* Drawer Overlay */}
+      <div 
+        className={`navbar-overlay ${isMenuOpen ? 'open' : ''}`} 
+        onClick={closeMenu}
+      />
+
+      {/* Drawer Sidebar */}
+      <div className={`navbar-drawer ${isMenuOpen ? 'open' : ''}`}>
+        <div className="drawer-header">
+          <IconPlanet size={32} className="text-ocean-500" />
+          <button className="text-alabaster" onClick={closeMenu}>
+            <IconX size={28} />
+          </button>
+        </div>
+
+        <div className="drawer-links">
+          {links.map(({ href, label, icon }) => (
+            <a
+              key={href}
+              href={href}
+              className={`drawer-link${activeHref === href ? ' active' : ''}`}
+              onClick={() => {
+                setActiveHref(href);
+                closeMenu();
+              }}
+            >
+              <span className="drawer-link-icon">{icon}</span>
+              <span className="drawer-link-label">{label}</span>
+            </a>
+          ))}
+        </div>
+
+        <div className="drawer-footer">
+          <button className="drawer-btn" onClick={() => { closeMenu(); /* add contact logic if needed */ }}>
+            {t.nav.contact}
           </button>
         </div>
       </div>

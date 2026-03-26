@@ -5,7 +5,7 @@
 .about-section {
   position: relative;
   width: 100%;
-  padding: 2rem 0;
+  padding: 5.5rem 0;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -14,12 +14,6 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-}
-
-@media (min-width: 1024px) {
-  .about-section {
-    height: 1000px;
-  }
 }
 
 /* ---------------------------------------- */
@@ -47,6 +41,7 @@
 
 @media (min-width: 1024px) {
   .about-container {
+    align-items: stretch;
     padding: 0 6rem;
     gap: 6rem;
   }
@@ -65,13 +60,13 @@
 
 @media (min-width: 768px) {
   .about-text-content {
-    margin-top: 3rem;
+    margin-top: 0rem;
   }
 }
 
 @media (min-width: 1024px) {
   .about-text-content {
-    margin-top: 6rem;
+    margin-top: 0rem;
   }
 }
 
@@ -83,6 +78,7 @@
 .about-paragraph {
   font-weight: 300;
   line-height: 1.625;
+  font-size: 1.25rem;
 }
 
 /* ---------------------------------------- */
@@ -143,6 +139,13 @@
   aspect-ratio: 3 / 4;
 }
 
+@media (min-width: 1024px) {
+  .about-image-container {
+    aspect-ratio: auto;
+    height: 100%;
+  }
+}
+
 /* ---------------------------------------- */
 
 .about-image-overlay {
@@ -165,7 +168,7 @@
 
 .about-waves-wrapper {
   position: absolute;
-  bottom: 10rem;
+  bottom: 4rem;
   width: 100%;
   z-index: 0;
   opacity: 1;

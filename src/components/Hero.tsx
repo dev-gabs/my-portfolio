@@ -17,13 +17,12 @@ const Hero: React.FC = () => {
       <div className="hero-content-wrapper">
         <div className="hero-content">
           <p className="hero-greeting">
-            {t.hero.greeting} <span>👋</span>
+            {t.hero.greeting} <span>👋🏻</span>
           </p>
 
           <h1 className="hero-title">
-            <span className="text-alabaster">{t.hero.im} </span>
-            <span className="text-ocean-400">Gabriel </span>
-            <span className="text-alabaster">Salvador</span>
+            <span className="text-before-name">{t.hero.im} </span>
+            <span className="text-name">Gabriel Salvador</span>
           </h1>
 
           <p className="hero-subtitle">

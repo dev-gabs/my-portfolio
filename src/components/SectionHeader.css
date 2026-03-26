@@ -17,7 +17,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 1; /* Match user preference if they want it more visible */
+  opacity: 1;
+  /* Match user preference if they want it more visible */
 }
 
 .section-header-icon::after {
