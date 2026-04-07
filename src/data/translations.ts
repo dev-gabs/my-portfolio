@@ -15,7 +15,9 @@ export const translations = {
       im: "I'm",
       subtitle: "Designer, maker, idea wrangler, visionary",
       resume: "Resume",
-      portfolio: "Portfolio"
+      portfolio: "Portfolio",
+      centerText: "Me",
+      sphereLabels: ["Music", "Design", "AI", "3D Print", "Games"]
     },
     about: {
       title: "ABOUT ME",
@@ -51,7 +53,9 @@ export const translations = {
       im: "Eu sou",
       subtitle: "Designer, criador, articulador de ideias, visionário",
       resume: "Currículo",
-      portfolio: "Portfólio"
+      portfolio: "Portfólio",
+      centerText: "Eu",
+      sphereLabels: ["Música", "Design", "IA", "3D Print", "Games"]
     },
     about: {
       title: "SOBRE MIM",

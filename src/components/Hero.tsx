@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import ConstellationSphere from './ConstellationSphere';
 
 
 const Hero: React.FC = () => {
@@ -16,18 +17,24 @@ const Hero: React.FC = () => {
 
       <div className="hero-content-wrapper">
         <div className="hero-content">
-          <p className="hero-greeting">
-            {t.hero.greeting} <span>👋🏻</span>
-          </p>
+          <div className="hero-text-block">
+            <p className="hero-greeting">
+              {t.hero.greeting} <span>👋🏻</span>
+            </p>
 
-          <h1 className="hero-title">
-            <span className="text-before-name">{t.hero.im} </span>
-            <span className="text-name">Gabriel Salvador</span>
-          </h1>
+            <h1 className="hero-title">
+              <span className="text-before-name">{t.hero.im} </span>
+              <span className="text-name">Gabriel Salvador</span>
+            </h1>
 
-          <p className="hero-subtitle">
-            {t.hero.subtitle}
-          </p>
+            <p className="hero-subtitle">
+              {t.hero.subtitle}
+            </p>
+          </div>
+
+          <div className="hero-3d-wrapper">
+            <ConstellationSphere />
+          </div>
 
           <div className="hero-actions">
             <a href="#resume" className="hero-btn-resume">
