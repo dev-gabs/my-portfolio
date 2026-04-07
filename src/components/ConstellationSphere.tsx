@@ -15,16 +15,16 @@ export const SPHERE_THEME = {
   colors: {
     orbitTextHover: '#38bdf8', // sky-400
     orbitTextIdle: '#e2e8f0',  // slate-200
-    anchorNode: '#704b2a',     // Dourado escuro quente
+    anchorNode: '#d8ab6f',     // Dourado escuro quente
     centerText: '#ffffff',     // Branco
     centerNode: '#ffffff',     // Branco
     centerGlow: '#38bdf8',     // sky-400
     innerPoints: '#cbd5e1',    // slate-300
-    connections: '#94a3b8'     // slate-400
+    connections: '#5f6976'     // slate-400
   },
   fonts: {
-    medium: "https://cdn.jsdelivr.net/npm/@fontsource/outfit@5.0.8/files/outfit-latin-500-normal.woff",
-    bold: "https://cdn.jsdelivr.net/npm/@fontsource/outfit@5.0.8/files/outfit-latin-700-normal.woff"
+    medium: "https://cdn.jsdelivr.net/npm/@fontsource/outfit@5.0.8/files/outfit-latin-300-normal.woff",
+    bold: "https://cdn.jsdelivr.net/npm/@fontsource/outfit@5.0.8/files/outfit-latin-500-normal.woff"
   },
   sizes: {
     orbitText: 0.22,
@@ -33,7 +33,7 @@ export const SPHERE_THEME = {
     centerNodeRadius: 0.12,
     centerGlowRadius: 0.22,
     innerPoints: 0.06,
-    hoverScalePoint: 1.3,
+    hoverScalePoint: 1.05,
     hoverScaleCenter: 1.2
   },
   opacities: {
@@ -123,7 +123,7 @@ const SphereContent: React.FC = () => {
   const { linesGeometry, pointPositions, textNodes } = useMemo(() => {
     const pts: THREE.Vector3[] = [];
     const phi = Math.PI * (3 - Math.sqrt(5));
-    
+
     // Generate inner points
     for (let i = 0; i < numPoints; i++) {
       const y = 1 - (i / (numPoints - 1)) * 2;
@@ -167,7 +167,7 @@ const SphereContent: React.FC = () => {
           for (let s = 0; s < arcSegments; s++) {
             const t1 = s / arcSegments;
             const t2 = (s + 1) / arcSegments;
-            
+
             v1.copy(start).lerp(end, t1).normalize().multiplyScalar(radius);
             v2.copy(start).lerp(end, t2).normalize().multiplyScalar(radius);
 
@@ -189,7 +189,7 @@ const SphereContent: React.FC = () => {
       positions[i * 3 + 2] = pts[i].z;
     }
 
-    return { 
+    return {
       linesGeometry: new Float32Array(lineVertices),
       pointPositions: positions,
       textNodes: txtNodePts
@@ -206,16 +206,16 @@ const SphereContent: React.FC = () => {
         <sphereGeometry args={[SPHERE_THEME.sizes.centerNodeRadius, 32, 32]} />
         <meshBasicMaterial color={SPHERE_THEME.colors.centerNode} />
       </mesh>
-      
+
       <mesh>
         <sphereGeometry args={[SPHERE_THEME.sizes.centerGlowRadius, 32, 32]} />
-        <meshBasicMaterial 
-          color={SPHERE_THEME.colors.centerGlow} 
-          transparent 
-          opacity={centerHover ? SPHERE_THEME.opacities.centerGlowHover : SPHERE_THEME.opacities.centerGlowIdle} 
+        <meshBasicMaterial
+          color={SPHERE_THEME.colors.centerGlow}
+          transparent
+          opacity={centerHover ? SPHERE_THEME.opacities.centerGlowHover : SPHERE_THEME.opacities.centerGlowIdle}
         />
       </mesh>
-      
+
       <Billboard>
         <Text
           position={[0, -0.5, 0]}
@@ -249,11 +249,11 @@ const SphereContent: React.FC = () => {
             args={[pointPositions, 3]}
           />
         </bufferGeometry>
-        <pointsMaterial 
-          color={SPHERE_THEME.colors.innerPoints} 
-          size={SPHERE_THEME.sizes.innerPoints} 
-          transparent 
-          opacity={SPHERE_THEME.opacities.innerPoints} 
+        <pointsMaterial
+          color={SPHERE_THEME.colors.innerPoints}
+          size={SPHERE_THEME.sizes.innerPoints}
+          transparent
+          opacity={SPHERE_THEME.opacities.innerPoints}
         />
       </points>
 
@@ -265,10 +265,10 @@ const SphereContent: React.FC = () => {
             args={[linesGeometry, 3]}
           />
         </bufferGeometry>
-        <lineBasicMaterial 
-          color={SPHERE_THEME.colors.connections} 
-          transparent 
-          opacity={SPHERE_THEME.opacities.connections} 
+        <lineBasicMaterial
+          color={SPHERE_THEME.colors.connections}
+          transparent
+          opacity={SPHERE_THEME.opacities.connections}
         />
       </lineSegments>
 
