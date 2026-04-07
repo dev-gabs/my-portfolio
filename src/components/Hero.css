@@ -11,7 +11,7 @@
   display: flex;
   align-items: center;
   background-color: var(--color-portfolio-bg);
-  border-bottom: 3px solid var(--color-warm);
+  /* The wavy divider replaces the static border */
 }
 
 @media (min-width: 1024px) {
@@ -42,6 +42,24 @@
   .hero-bg {
     background-position: center center;
   }
+}
+
+/* ---------------------------------------- */
+
+.hero-waves-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.hero-waves-svg {
+  width: 100%;
+  height: 100%;
 }
 
 /* ---------------------------------------- */
@@ -102,15 +120,18 @@
   order: 3;
   display: flex;
   align-items: center;
-  justify-content: center; /* Center horizontally on mobile */
+  justify-content: center;
+  /* Center horizontally on mobile */
   gap: 1.25rem;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
 }
 
 @media (min-width: 1024px) {
   .hero-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-areas: 
+    grid-template-areas:
       "text   sphere"
       "actions sphere";
     grid-template-rows: auto auto;
@@ -125,7 +146,8 @@
   .hero-actions {
     grid-area: actions;
     align-self: start;
-    justify-content: flex-start; /* Reset to left alignment on desktop */
+    justify-content: flex-start;
+    /* Reset to left alignment on desktop */
   }
 
   .hero-3d-wrapper {

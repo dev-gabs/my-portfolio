@@ -5,6 +5,58 @@ import * as THREE from 'three';
 import { useLanguage } from '../context/LanguageContext';
 import './ConstellationSphere.css';
 
+/* ==========================================
+   CONFIGURAÇÃO VISUAL DA CONSTELAÇÃO (THEME)
+   ==========================================
+   Altere cores, tamanhos, fontes e opacidades 
+   destas propriedades de forma centralizada! 
+*/
+export const SPHERE_THEME = {
+  colors: {
+    orbitTextHover: '#38bdf8', // sky-400
+    orbitTextIdle: '#e2e8f0',  // slate-200
+    anchorNode: '#704b2a',     // Dourado escuro quente
+    centerText: '#ffffff',     // Branco
+    centerNode: '#ffffff',     // Branco
+    centerGlow: '#38bdf8',     // sky-400
+    innerPoints: '#cbd5e1',    // slate-300
+    connections: '#94a3b8'     // slate-400
+  },
+  fonts: {
+    medium: "https://cdn.jsdelivr.net/npm/@fontsource/outfit@5.0.8/files/outfit-latin-500-normal.woff",
+    bold: "https://cdn.jsdelivr.net/npm/@fontsource/outfit@5.0.8/files/outfit-latin-700-normal.woff"
+  },
+  sizes: {
+    orbitText: 0.22,
+    anchorRadius: 0.07,
+    centerText: 0.4,
+    centerNodeRadius: 0.12,
+    centerGlowRadius: 0.22,
+    innerPoints: 0.06,
+    hoverScalePoint: 1.3,
+    hoverScaleCenter: 1.2
+  },
+  opacities: {
+    centerGlowHover: 0.5,
+    centerGlowIdle: 0.15,
+    innerPoints: 0.6,
+    connections: 0.15
+  },
+  geometry: {
+    numPoints: 80,
+    radius: 2.5,
+    textRadiusMultiplier: 1.15, // Posição da órbita em relação ao raio original
+    maxDistance: 1.25,
+    arcSegments: 6
+  },
+  animation: {
+    autoRotateSpeed: 0.5,
+    dampingFactor: 0.05
+  }
+};
+
+/* ========================================== */
+
 interface OrbitalNodeProps {
   position: THREE.Vector3;
   label: string;
@@ -12,8 +64,7 @@ interface OrbitalNodeProps {
 
 const OrbitalNode: React.FC<OrbitalNodeProps> = ({ position, label }) => {
   const [hovered, setHovered] = useState(false);
-  const color = hovered ? '#38bdf8' : '#e2e8f0';
-  const FONT_URL = "https://cdn.jsdelivr.net/npm/@fontsource/outfit@5.0.8/files/outfit-latin-500-normal.woff";
+  const color = hovered ? SPHERE_THEME.colors.orbitTextHover : SPHERE_THEME.colors.orbitTextIdle;
 
   const groupRef = useRef<THREE.Group>(null);
   const vec = useMemo(() => new THREE.Vector3(), []);
@@ -24,7 +75,7 @@ const OrbitalNode: React.FC<OrbitalNodeProps> = ({ position, label }) => {
       const dist = state.camera.position.distanceTo(vec);
       // Scale proportionally to distance (7 is base camera Z)
       const baseScale = dist / 7;
-      const finalScale = hovered ? baseScale * 1.3 : baseScale;
+      const finalScale = hovered ? baseScale * SPHERE_THEME.sizes.hoverScalePoint : baseScale;
       groupRef.current.scale.set(finalScale, finalScale, finalScale);
     }
   });
@@ -32,14 +83,14 @@ const OrbitalNode: React.FC<OrbitalNodeProps> = ({ position, label }) => {
   return (
     <group ref={groupRef} position={position}>
       <mesh>
-        <sphereGeometry args={[0.07, 32, 32]} />
-        <meshBasicMaterial color="#704b2a" /> {/* Warm/different color to stand out */}
+        <sphereGeometry args={[SPHERE_THEME.sizes.anchorRadius, 32, 32]} />
+        <meshBasicMaterial color={SPHERE_THEME.colors.anchorNode} />
       </mesh>
       <Billboard>
         <Text
           position={[0, -0.25, 0]}
-          font={FONT_URL}
-          fontSize={0.22}
+          font={SPHERE_THEME.fonts.medium}
+          fontSize={SPHERE_THEME.sizes.orbitText}
           color={color}
           anchorX="center"
           anchorY="middle"
@@ -66,10 +117,8 @@ const SphereContent: React.FC = () => {
   const { t } = useLanguage();
   const labels = t.hero.sphereLabels || [];
 
-  const numPoints = 80;
-  const radius = 2.5;
-  const textRadius = radius * 1.15;
-  const maxDistance = 1.25;
+  const { numPoints, radius, maxDistance, textRadiusMultiplier, arcSegments } = SPHERE_THEME.geometry;
+  const textRadius = radius * textRadiusMultiplier;
 
   const { linesGeometry, pointPositions, textNodes } = useMemo(() => {
     const pts: THREE.Vector3[] = [];
@@ -102,6 +151,9 @@ const SphereContent: React.FC = () => {
       }
     }
 
+    const v1 = new THREE.Vector3();
+    const v2 = new THREE.Vector3();
+
     const lineVertices: number[] = [];
     for (let i = 0; i < pts.length; i++) {
       if (i % 12 === 0) {
@@ -109,7 +161,18 @@ const SphereContent: React.FC = () => {
       }
       for (let j = i + 1; j < pts.length; j++) {
         if (pts[i].distanceTo(pts[j]) < maxDistance) {
-          lineVertices.push(pts[i].x, pts[i].y, pts[i].z, pts[j].x, pts[j].y, pts[j].z);
+          const start = pts[i];
+          const end = pts[j];
+          // Create an arc along the surface instead of a straight chord
+          for (let s = 0; s < arcSegments; s++) {
+            const t1 = s / arcSegments;
+            const t2 = (s + 1) / arcSegments;
+            
+            v1.copy(start).lerp(end, t1).normalize().multiplyScalar(radius);
+            v2.copy(start).lerp(end, t2).normalize().multiplyScalar(radius);
+
+            lineVertices.push(v1.x, v1.y, v1.z, v2.x, v2.y, v2.z);
+          }
         }
       }
     }
@@ -127,35 +190,38 @@ const SphereContent: React.FC = () => {
     }
 
     return { 
-      points: pts, 
       linesGeometry: new Float32Array(lineVertices),
       pointPositions: positions,
       textNodes: txtNodePts
     };
-  }, [labels, textRadius]);
+  }, [labels, textRadius, numPoints, radius, maxDistance, arcSegments]);
 
   const [centerHover, setCenterHover] = useState(false);
-  const centerScale = centerHover ? 1.2 : 1.0;
+  const centerScale = centerHover ? SPHERE_THEME.sizes.hoverScaleCenter : 1.0;
 
   return (
     <group>
       {/* Central Node highlight */}
       <mesh>
-        <sphereGeometry args={[0.12, 32, 32]} />
-        <meshBasicMaterial color="#ffffff" />
+        <sphereGeometry args={[SPHERE_THEME.sizes.centerNodeRadius, 32, 32]} />
+        <meshBasicMaterial color={SPHERE_THEME.colors.centerNode} />
       </mesh>
       
       <mesh>
-        <sphereGeometry args={[0.22, 32, 32]} />
-        <meshBasicMaterial color="#38bdf8" transparent opacity={centerHover ? 0.5 : 0.15} />
+        <sphereGeometry args={[SPHERE_THEME.sizes.centerGlowRadius, 32, 32]} />
+        <meshBasicMaterial 
+          color={SPHERE_THEME.colors.centerGlow} 
+          transparent 
+          opacity={centerHover ? SPHERE_THEME.opacities.centerGlowHover : SPHERE_THEME.opacities.centerGlowIdle} 
+        />
       </mesh>
       
       <Billboard>
         <Text
           position={[0, -0.5, 0]}
-          font="https://cdn.jsdelivr.net/npm/@fontsource/outfit@5.0.8/files/outfit-latin-700-normal.woff"
-          fontSize={0.4}
-          color="#ffffff"
+          font={SPHERE_THEME.fonts.bold}
+          fontSize={SPHERE_THEME.sizes.centerText}
+          color={SPHERE_THEME.colors.centerText}
           anchorX="center"
           anchorY="middle"
           outlineWidth={0.025}
@@ -183,7 +249,12 @@ const SphereContent: React.FC = () => {
             args={[pointPositions, 3]}
           />
         </bufferGeometry>
-        <pointsMaterial color="#cbd5e1" size={0.05} transparent opacity={0.6} />
+        <pointsMaterial 
+          color={SPHERE_THEME.colors.innerPoints} 
+          size={SPHERE_THEME.sizes.innerPoints} 
+          transparent 
+          opacity={SPHERE_THEME.opacities.innerPoints} 
+        />
       </points>
 
       {/* Sphere connections */}
@@ -194,7 +265,11 @@ const SphereContent: React.FC = () => {
             args={[linesGeometry, 3]}
           />
         </bufferGeometry>
-        <lineBasicMaterial color="#94a3b8" transparent opacity={0.2} />
+        <lineBasicMaterial 
+          color={SPHERE_THEME.colors.connections} 
+          transparent 
+          opacity={SPHERE_THEME.opacities.connections} 
+        />
       </lineSegments>
 
       {/* Orbital text nodes */}
@@ -217,9 +292,9 @@ const ConstellationSphere: React.FC = () => {
           enablePan={false}
           enableRotate={true}
           autoRotate={true}
-          autoRotateSpeed={0.5}
+          autoRotateSpeed={SPHERE_THEME.animation.autoRotateSpeed}
           enableDamping={true}
-          dampingFactor={0.05}
+          dampingFactor={SPHERE_THEME.animation.dampingFactor}
         />
       </Canvas>
     </div>

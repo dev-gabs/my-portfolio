@@ -1,6 +1,7 @@
 import { IconUserSquareRounded, IconBrandInstagram, IconBrandLinkedin, IconMail } from '@tabler/icons-react';
 import { useLanguage } from '../context/LanguageContext';
 import SectionHeader from './SectionHeader';
+import HeroWaves from './HeroWaves';
 
 const AboutMe: React.FC = () => {
   const { t } = useLanguage();
@@ -9,8 +10,14 @@ const AboutMe: React.FC = () => {
     <section
       id="about"
       className="about-section"
-      style={{ backgroundImage: `url('${import.meta.env.BASE_URL}assets/aboutme-bg.png')` }}
     >
+      {/* Masked Background exactly following the wave */}
+      <div 
+        className="about-masked-bg" 
+        style={{ backgroundImage: `url('${import.meta.env.BASE_URL}assets/aboutme-bg.png')` }} 
+      />
+      <HeroWaves />
+      
       <div className="about-container">
 
         {/* Left Text Content */}
