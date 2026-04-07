@@ -12,7 +12,7 @@ export const translations = {
     },
     hero: {
       greeting: "Hi there",
-      im: "I'm",
+      im: "I'm ",
       subtitle: "Designer, maker, idea wrangler, visionary",
       resume: "Resume",
       portfolio: "Portfolio",
@@ -50,7 +50,7 @@ export const translations = {
     },
     hero: {
       greeting: "Olá",
-      im: "Eu sou",
+      im: "Eu sou ",
       subtitle: "Designer, criador, articulador de ideias, visionário",
       resume: "Currículo",
       portfolio: "Portfólio",
