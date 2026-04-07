@@ -50,7 +50,7 @@ const OrbitalNode: React.FC<OrbitalNodeProps> = ({ position, label }) => {
             setHovered(true);
             document.body.style.cursor = 'pointer';
           }}
-          onPointerOut={(e) => {
+          onPointerOut={() => {
             setHovered(false);
             document.body.style.cursor = 'grab'; // Fallback to container default
           }}
@@ -71,7 +71,7 @@ const SphereContent: React.FC = () => {
   const textRadius = radius * 1.15;
   const maxDistance = 1.25;
 
-  const { points, linesGeometry, pointPositions, textNodes } = useMemo(() => {
+  const { linesGeometry, pointPositions, textNodes } = useMemo(() => {
     const pts: THREE.Vector3[] = [];
     const phi = Math.PI * (3 - Math.sqrt(5));
     
@@ -180,9 +180,7 @@ const SphereContent: React.FC = () => {
         <bufferGeometry>
           <bufferAttribute
             attach="attributes-position"
-            count={points.length}
-            array={pointPositions}
-            itemSize={3}
+            args={[pointPositions, 3]}
           />
         </bufferGeometry>
         <pointsMaterial color="#cbd5e1" size={0.05} transparent opacity={0.6} />
@@ -193,9 +191,7 @@ const SphereContent: React.FC = () => {
         <bufferGeometry>
           <bufferAttribute
             attach="attributes-position"
-            count={linesGeometry.length / 3}
-            array={linesGeometry}
-            itemSize={3}
+            args={[linesGeometry, 3]}
           />
         </bufferGeometry>
         <lineBasicMaterial color="#94a3b8" transparent opacity={0.2} />
