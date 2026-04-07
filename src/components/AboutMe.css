@@ -10,8 +10,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-bottom: 3px solid var(--color-ocean-300);
-  
+
   /* Overlapping Hero strictly by the height of HeroWaves */
   margin-top: -120px;
   padding-top: calc(5.5rem + 120px);
@@ -27,15 +26,15 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  
-  -webkit-mask-image: 
+
+  -webkit-mask-image:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Cpath d='M0,120 L0,80 C200,160 300,10 500,60 C700,110 800,-10 1000,40 C1200,90 1300,110 1440,60 L1440,120 Z' fill='black'/%3E%3C/svg%3E"),
     linear-gradient(black, black);
   -webkit-mask-position: top, bottom;
   -webkit-mask-size: 100% 120px, 100% calc(100% - 119px);
   -webkit-mask-repeat: no-repeat, no-repeat;
-  
-  mask-image: 
+
+  mask-image:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Cpath d='M0,120 L0,80 C200,160 300,10 500,60 C700,110 800,-10 1000,40 C1200,90 1300,110 1440,60 L1440,120 Z' fill='black'/%3E%3C/svg%3E"),
     linear-gradient(black, black);
   mask-position: top, bottom;
@@ -112,6 +111,7 @@
 
 .about-quote {
   font-weight: 300;
+  font-size: 1.25rem;
   line-height: 1.625;
   font-style: italic;
   margin-top: 1rem;

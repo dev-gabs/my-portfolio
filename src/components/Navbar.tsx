@@ -16,6 +16,8 @@ const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   // Track the intersection ratio of each section
   const ratiosRef = useRef<Record<string, number>>({});
+  // Track programmatic navigation to prevent scroll artifacts
+  const isNavigatingRef = useRef(false);
 
   const links = [
     { href: '#home', label: t.nav.home, icon: <IconHome size={20} stroke={1.5} /> },
@@ -27,6 +29,14 @@ const Navbar: React.FC = () => {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
+
+  const handleNavClick = (href: string) => {
+    setActiveHref(href);
+    isNavigatingRef.current = true;
+    setTimeout(() => {
+      isNavigatingRef.current = false;
+    }, 1500); // Wait for smooth scroll to finish (approx 1s)
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -41,7 +51,9 @@ const Navbar: React.FC = () => {
           { id: '', ratio: -1 }
         );
 
-        if (best.id) setActiveHref(best.id);
+        if (best.id && !isNavigatingRef.current) {
+          setActiveHref(best.id);
+        }
       },
       { threshold: [0, 0.1, 0.25, 0.5, 0.75, 1.0] }
     );
@@ -74,7 +86,7 @@ const Navbar: React.FC = () => {
               key={href}
               href={href}
               className={`navbar-link${activeHref === href ? ' active' : ''}`}
-              onClick={() => setActiveHref(href)}
+              onClick={() => handleNavClick(href)}
             >
               {label}
             </a>
@@ -134,7 +146,7 @@ const Navbar: React.FC = () => {
               href={href}
               className={`drawer-link${activeHref === href ? ' active' : ''}`}
               onClick={() => {
-                setActiveHref(href);
+                handleNavClick(href);
                 closeMenu();
               }}
             >

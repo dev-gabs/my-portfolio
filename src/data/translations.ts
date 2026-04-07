@@ -17,7 +17,7 @@ export const translations = {
       resume: "Resume",
       portfolio: "Portfolio",
       centerText: "Who I am",
-      sphereLabels: ["Design", "Astronomy", "Modeling", "3D Printing", "Creativity", "UX/UI", "Music", "Technology", "Automation", "Innovation", "Collaboration"]
+      sphereLabels: ["Design", "Astronomy", "Careness", "Modeling", "3D Printing", "Creativity", "UX/UI", "Music", "Technology", "Automation", "Innovation", "Collaboration"]
     },
     about: {
       title: "ABOUT ME",
@@ -55,7 +55,7 @@ export const translations = {
       resume: "Currículo",
       portfolio: "Portfólio",
       centerText: "Quem sou eu",
-      sphereLabels: ["Design", "Astronomia", "Modelagem", "Impressão 3D", "Criatividade", "UX/UI", "Música", "Tecnologia", "Automação", "Inovação", "Cooperação"]
+      sphereLabels: ["Design", "Astronomia", "Cuidado", "Modelagem", "Impressão 3D", "Criatividade", "UX/UI", "Música", "Tecnologia", "Automação", "Inovação", "Cooperação"]
     },
     about: {
       title: "SOBRE MIM",
