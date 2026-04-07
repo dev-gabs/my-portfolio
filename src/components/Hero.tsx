@@ -59,7 +59,7 @@ const Hero: React.FC = () => {
       {/* Background Image Setup */}
       <div
         className="hero-bg"
-        style={{ backgroundImage: `url('${import.meta.env.BASE_URL}assets/hero-bg.png')` }}
+        style={{ backgroundImage: `url('${import.meta.env.BASE_URL}assets/hero-bg.jpg')` }}
       >
       </div>
 
