@@ -1,0 +1,396 @@
+/* ========================================
+   PROJECTS SECTION — IMMERSIVE CAROUSEL
+   ======================================== */
+
+.projects-section {
+  width: 100%;
+  padding: 6rem 0 4rem;
+  background-color: var(--color-portfolio-bg);
+  border-bottom: 3px solid var(--color-ocean-400);
+  overflow: hidden;
+  /* clip at section level so side cards peek */
+}
+
+/* ---------------------------------------- */
+
+.projects-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .projects-container {
+    padding: 0 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .projects-container {
+    padding: 0 6rem;
+  }
+}
+
+/* ========================================
+   FILTER TABS
+   ======================================== */
+
+.projects-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 3rem;
+}
+
+.projects-filter-tab {
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
+  color: color-mix(in srgb, var(--color-alabaster) 55%, transparent);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  cursor: url("/assets/cursor/pointer.svg"), pointer;
+  transition: all 250ms ease;
+}
+
+.projects-filter-tab:hover {
+  color: var(--color-alabaster);
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.projects-filter-tab.active {
+  color: var(--color-alabaster);
+  border-color: var(--color-ocean-500);
+  background: color-mix(in srgb, var(--color-ocean-500) 12%, transparent);
+}
+
+/* ========================================
+   CAROUSEL WRAPPER
+   ======================================== */
+
+.projects-carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  /* No overflow:hidden here — let side cards bleed out, clipped by section */
+  padding: 2rem 0 2.5rem;
+  cursor: url("/assets/cursor/grab.svg"), grab;
+  /* Prevent text/image selection while dragging */
+  user-select: none;
+  -webkit-user-select: none;
+  /* Allow vertical scroll but intercept horizontal swipes */
+  touch-action: pan-y;
+}
+
+.projects-carousel-wrapper:active {
+  cursor: url("/assets/cursor/grabbing.svg"), grabbing;
+}
+
+/* Prevent native browser drag on images and text inside cards */
+.projects-carousel-wrapper img,
+.projects-carousel-wrapper h3,
+.projects-carousel-wrapper p,
+.projects-carousel-wrapper span {
+  -webkit-user-drag: none;
+  user-drag: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* ========================================
+   CARDS TRACK
+   ======================================== */
+
+.projects-track {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 440px;
+}
+
+@media (min-width: 768px) {
+  .projects-track {
+    height: 480px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .projects-track {
+    height: 520px;
+  }
+}
+
+/* ========================================
+   PROJECT CARD
+   ======================================== */
+
+.project-card {
+  position: absolute;
+  /* Narrower card so side cards bleed into view */
+  width: min(72vw, 480px);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.03);
+  transition:
+    transform 500ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 500ms ease,
+    border-color 350ms ease,
+    box-shadow 350ms ease;
+  /* Offset: 75% moves each card just past the center card edge */
+  transform:
+    translateX(calc(var(--offset, 0) * 75%)) scale(calc(1 - abs(var(--offset, 0)) * 0.1));
+  opacity: calc(1 - abs(var(--offset, 0)) * 0.45);
+  z-index: calc(10 - abs(var(--offset, 0)));
+  cursor: url("/assets/cursor/pointer.svg"), pointer;
+  backdrop-filter: blur(10px);
+}
+
+@media (min-width: 768px) {
+  .project-card {
+    width: min(55vw, 580px);
+    transform:
+      translateX(calc(var(--offset, 0) * 72%)) scale(calc(1 - abs(var(--offset, 0)) * 0.1));
+  }
+}
+
+@media (min-width: 1024px) {
+  .project-card {
+    width: min(44vw, 640px);
+    transform:
+      translateX(calc(var(--offset, 0) * 70%)) scale(calc(1 - abs(var(--offset, 0)) * 0.1));
+  }
+}
+
+.project-card--active {
+  border-color: color-mix(in srgb, var(--color-ocean-500) 40%, transparent);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--color-ocean-500) 20%, transparent),
+    0 24px 64px rgba(0, 0, 0, 0.5);
+  cursor: default;
+}
+
+.project-card--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------------------------------------- */
+
+.project-card-image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.project-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 600ms ease;
+  pointer-events: none;
+}
+
+.project-card--active .project-card-image {
+  transform: scale(1.04);
+}
+
+.project-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom,
+      rgba(7, 9, 10, 0) 40%,
+      rgba(7, 9, 10, 0.85) 100%);
+}
+
+.project-card-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-ocean-400) 25%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-ocean-500) 40%, transparent);
+  backdrop-filter: blur(8px);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--color-ocean-600);
+  text-transform: uppercase;
+}
+
+/* ---------------------------------------- */
+
+.project-card-body {
+  padding: 1.25rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.project-card-title {
+  font-size: 1.25rem;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+  color: var(--color-alabaster);
+  margin: 0;
+  line-height: 1.3;
+  transition: color 200ms ease;
+}
+
+@media (min-width: 768px) {
+  .project-card-title {
+    font-size: 1.5rem;
+  }
+}
+
+.project-card-description {
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: color-mix(in srgb, var(--color-alabaster) 55%, transparent);
+  line-height: 1.6;
+  margin: 0;
+  /* Only visible on active card */
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 400ms ease, opacity 300ms ease;
+}
+
+.project-card--active .project-card-description {
+  max-height: 6rem;
+  opacity: 1;
+}
+
+.project-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--color-ocean-500);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  margin-top: 0.25rem;
+  transition: color 200ms ease, gap 200ms ease;
+  cursor: url("/assets/cursor/pointer.svg"), pointer;
+}
+
+.project-card-link:hover {
+  color: var(--color-ocean-600);
+  gap: 0.5rem;
+}
+
+/* ========================================
+   ARROWS
+   ======================================== */
+
+.projects-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(7, 9, 10, 0.7);
+  backdrop-filter: blur(8px);
+  color: color-mix(in srgb, var(--color-alabaster) 70%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: url("/assets/cursor/pointer.svg"), pointer;
+  transition: all 250ms ease;
+}
+
+.projects-arrow:hover:not(:disabled) {
+  border-color: var(--color-ocean-500);
+  color: var(--color-alabaster);
+  background: rgba(171, 196, 227, 0.08);
+}
+
+.projects-arrow:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
+/* Arrows sit just outside the center card edges on all breakpoints */
+.projects-arrow--prev {
+  /* card is min(72vw, 480px) wide, so edge is at 50% - half-card */
+  left: calc(50% - min(36vw, 240px) - 3.5rem);
+}
+
+.projects-arrow--next {
+  right: calc(50% - min(36vw, 240px) - 3.5rem);
+}
+
+@media (min-width: 768px) {
+  .projects-arrow {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  /* card is min(55vw, 580px) — half = min(27.5vw, 290px) */
+  .projects-arrow--prev {
+    left: calc(50% - min(27.5vw, 290px) - 3.75rem);
+  }
+
+  .projects-arrow--next {
+    right: calc(50% - min(27.5vw, 290px) - 3.75rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  /* card is min(44vw, 640px) — half = min(22vw, 320px) */
+  .projects-arrow--prev {
+    left: calc(50% - min(22vw, 320px) - 3.75rem);
+  }
+
+  .projects-arrow--next {
+    right: calc(50% - min(22vw, 320px) - 3.75rem);
+  }
+}
+
+/* ========================================
+   DOT INDICATORS
+   ======================================== */
+
+.projects-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.projects-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  cursor: url("/assets/cursor/pointer.svg"), pointer;
+  transition: all 300ms ease;
+  padding: 0;
+}
+
+.projects-dot.active {
+  width: 24px;
+  border-radius: 999px;
+  background: var(--color-ocean-500);
+}
+
+.projects-dot:not(.active):hover {
+  background: rgba(255, 255, 255, 0.45);
+}

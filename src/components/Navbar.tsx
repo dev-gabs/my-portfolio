@@ -5,6 +5,7 @@ import {
   IconHome,
   IconUser,
   IconTools,
+  IconBriefcase,
   IconHistory,
   IconPlant
 } from '@tabler/icons-react';
@@ -23,6 +24,7 @@ const Navbar: React.FC = () => {
     { href: '#home', label: t.nav.home, icon: <IconHome size={20} stroke={1.5} /> },
     { href: '#about', label: t.nav.about, icon: <IconUser size={20} stroke={1.5} /> },
     { href: '#tools', label: t.nav.tools, icon: <IconTools size={20} stroke={1.5} /> },
+    { href: '#projects', label: t.nav.projects, icon: <IconBriefcase size={20} stroke={1.5} /> },
     { href: '#story', label: t.nav.story, icon: <IconHistory size={20} stroke={1.5} /> },
     { href: '#eden', label: t.nav.eden, icon: <IconPlant size={20} stroke={1.5} /> },
   ];
