@@ -22,12 +22,27 @@ const Contact: React.FC = () => {
     e.preventDefault();
     setStatus('sending');
     
-    // Simulating API call
-    setTimeout(() => {
-      setStatus('success');
-      setFormData({ name: '', email: '', message: '' });
-      setTimeout(() => setStatus('idle'), 5000);
-    }, 1500);
+    try {
+      const response = await fetch('https://formspree.io/f/mvzvnylv', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => setStatus('idle'), 5000);
+      } else {
+        setStatus('error');
+      }
+    } catch (error) {
+      console.error('Formspree error:', error);
+      setStatus('error');
+    }
   };
 
   const contactT = (t as any).contact;
