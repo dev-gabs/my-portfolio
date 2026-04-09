@@ -39,7 +39,13 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .projects-filters {
+    margin-bottom: 3rem;
+  }
 }
 
 .projects-filter-tab {
@@ -79,7 +85,7 @@
   justify-content: center;
   width: 100%;
   /* No overflow:hidden here — let side cards bleed out, clipped by section */
-  padding: 2rem 0 2.5rem;
+  padding: 0.5rem 0 2.5rem;
   cursor: url("/assets/cursor/grab.svg"), grab;
   /* Prevent text/image selection while dragging */
   user-select: none;
@@ -154,6 +160,10 @@
 }
 
 @media (min-width: 768px) {
+  .projects-carousel-wrapper {
+    padding-top: 2rem;
+  }
+
   .project-card {
     width: min(55vw, 580px);
     transform:
