@@ -1,6 +1,6 @@
 import React from 'react';
-import { 
-  IconHistory, 
+import {
+  IconHistory,
   IconCircleFilled,
   IconRocket,
   IconBrush,
@@ -14,8 +14,8 @@ import './Story.css';
 
 const getCategoryIcon = (category: string) => {
   const cat = category.toLowerCase();
-  if (cat.includes('design') && cat.includes('3d')) return <IconBrush size={18} />;
-  if (cat.includes('legal')) return <IconScale size={18} />;
+  if (cat.includes('legal design')) return <IconScale size={18} />;
+  if (cat.includes('design')) return <IconBrush size={18} />;
   if (cat.includes('ux') || cat.includes('ui')) return <IconAppWindow size={18} />;
   if (cat.includes('innovation')) return <IconRocket size={18} />;
   return <IconCircleFilled size={14} />;
@@ -27,9 +27,9 @@ const Story: React.FC = () => {
   return (
     <section className="story-section" id="story">
       <div className="story-container">
-        <SectionHeader 
-          icon={<IconHistory />} 
-          title={(t as any).nav.story ?? "MY STORY"} 
+        <SectionHeader
+          icon={<IconHistory />}
+          title={(t as any).nav.story ?? "MY STORY"}
         />
 
         <div className="story-timeline">
@@ -42,8 +42,8 @@ const Story: React.FC = () => {
               const isEven = idx % 2 === 0;
 
               return (
-                <div 
-                  key={milestone.id} 
+                <div
+                  key={milestone.id}
                   className={`story-milestone-item ${isEven ? 'item-left' : 'item-right'}`}
                 >
                   {/* The Node on the line */}

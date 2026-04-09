@@ -100,7 +100,7 @@ const Hero: React.FC = () => {
             <a href="#resume" className="hero-btn-resume">
               {t.hero.resume}
             </a>
-            <a href="#portfolio" className="hero-btn-portfolio">
+            <a href="#projects" className="hero-btn-portfolio">
               {t.hero.portfolio}
             </a>
           </div>

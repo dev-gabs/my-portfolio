@@ -98,9 +98,13 @@ const Navbar: React.FC = () => {
         {/* Language & Contact */}
         <div className="navbar-actions">
           <div className="navbar-contact">
-            <button className="navbar-btn">
+            <a 
+              href="#contact" 
+              className="navbar-btn"
+              onClick={() => handleNavClick('#contact')}
+            >
               {t.nav.contact}
-            </button>
+            </a>
           </div>
 
           <div
@@ -159,9 +163,16 @@ const Navbar: React.FC = () => {
         </div>
 
         <div className="drawer-footer">
-          <button className="drawer-btn" onClick={() => { closeMenu(); /* add contact logic if needed */ }}>
+          <a 
+            href="#contact" 
+            className="drawer-btn" 
+            onClick={() => { 
+              handleNavClick('#contact');
+              closeMenu(); 
+            }}
+          >
             {t.nav.contact}
-          </button>
+          </a>
         </div>
       </div>
     </nav>
