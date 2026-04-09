@@ -41,6 +41,15 @@ export const translations = {
       all: "All",
       viewProject: "View Project"
     },
+    contact: {
+      title: "GET IN TOUCH",
+      nameLabel: "Full Name",
+      emailLabel: "Email Address",
+      messageLabel: "Your Message",
+      sendButton: "Send Message",
+      success: "Message sent successfully!",
+      error: "Something went wrong. Please try again."
+    },
     footer: {
       rights: "ALL RIGHTS RESERVED."
     }
@@ -84,6 +93,15 @@ export const translations = {
       title: "PROJETOS",
       all: "Todos",
       viewProject: "Ver Projeto"
+    },
+    contact: {
+      title: "ENTRE EM CONTATO",
+      nameLabel: "Nome Completo",
+      emailLabel: "E-mail",
+      messageLabel: "Sua Mensagem",
+      sendButton: "Enviar Mensagem",
+      success: "Mensagem enviada com sucesso!",
+      error: "Ocorreu um erro. Tente novamente."
     },
     footer: {
       rights: "TODOS OS DIREITOS RESERVADOS."
