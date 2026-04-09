@@ -2,6 +2,7 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { IconBriefcase, IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 import { useLanguage } from '../context/LanguageContext';
 import SectionHeader from './SectionHeader';
+import { PROJECTS } from '../data/projects';
 import './Projects.css';
 
 /* =============================================
@@ -15,119 +16,13 @@ const CATEGORY_COLORS: Record<string, { bg: string; border: string; text: string
   'Eletrônica':    { bg: 'rgba(251,146,60,0.13)',  border: 'rgba(251,146,60,0.4)',   text: '#fdba74' },
 };
 
-/* =============================================
-   PROJECTS DATA
-   Add new projects here. The carousel adapts
-   automatically to any number of items.
-   ============================================= */
-export interface Project {
-  id: string;
-  titleKey: string;
-  descriptionKey: string;
-  category: string;
-  image: string;
-  link?: string;
-}
-
-export const PROJECTS: Project[] = [
-  // ── Legal Design ──────────────────────────
-  {
-    id: 'legal-design-01',
-    titleKey: 'projects.items.legalDesign01.title',
-    descriptionKey: 'projects.items.legalDesign01.description',
-    category: 'Legal Design',
-    image: `${import.meta.env.BASE_URL}assets/hero-bg.jpg`,
-    link: 'https://www.google.com',
-  },
-  {
-    id: 'legal-design-02',
-    titleKey: 'projects.items.legalDesign02.title',
-    descriptionKey: 'projects.items.legalDesign02.description',
-    category: 'Legal Design',
-    image: `${import.meta.env.BASE_URL}assets/tools-bg.png`,
-  },
-  {
-    id: 'legal-design-03',
-    titleKey: 'projects.items.legalDesign03.title',
-    descriptionKey: 'projects.items.legalDesign03.description',
-    category: 'Legal Design',
-    image: `${import.meta.env.BASE_URL}assets/aboutme-bg.png`,
-  },
-  // ── UI/UX ─────────────────────────────────
-  {
-    id: 'uxui-01',
-    titleKey: 'projects.items.uxui01.title',
-    descriptionKey: 'projects.items.uxui01.description',
-    category: 'UI/UX',
-    image: `${import.meta.env.BASE_URL}assets/aboutme-bg.png`,
-  },
-  {
-    id: 'uxui-02',
-    titleKey: 'projects.items.uxui02.title',
-    descriptionKey: 'projects.items.uxui02.description',
-    category: 'UI/UX',
-    image: `${import.meta.env.BASE_URL}assets/hero-bg.jpg`,
-  },
-  {
-    id: 'uxui-03',
-    titleKey: 'projects.items.uxui03.title',
-    descriptionKey: 'projects.items.uxui03.description',
-    category: 'UI/UX',
-    image: `${import.meta.env.BASE_URL}assets/tools-bg.png`,
-  },
-  // ── Modelagem 3D ──────────────────────────
-  {
-    id: 'modeling-01',
-    titleKey: 'projects.items.modeling01.title',
-    descriptionKey: 'projects.items.modeling01.description',
-    category: 'Modelagem 3D',
-    image: `${import.meta.env.BASE_URL}assets/tools-bg.png`,
-  },
-  {
-    id: 'modeling-02',
-    titleKey: 'projects.items.modeling02.title',
-    descriptionKey: 'projects.items.modeling02.description',
-    category: 'Modelagem 3D',
-    image: `${import.meta.env.BASE_URL}assets/hero-bg.jpg`,
-  },
-  {
-    id: 'modeling-03',
-    titleKey: 'projects.items.modeling03.title',
-    descriptionKey: 'projects.items.modeling03.description',
-    category: 'Modelagem 3D',
-    image: `${import.meta.env.BASE_URL}assets/aboutme-bg.png`,
-  },
-  // ── Eletrônica ────────────────────────────
-  {
-    id: 'electronics-01',
-    titleKey: 'projects.items.electronics01.title',
-    descriptionKey: 'projects.items.electronics01.description',
-    category: 'Eletrônica',
-    image: `${import.meta.env.BASE_URL}assets/hero-bg.jpg`,
-  },
-  {
-    id: 'electronics-02',
-    titleKey: 'projects.items.electronics02.title',
-    descriptionKey: 'projects.items.electronics02.description',
-    category: 'Eletrônica',
-    image: `${import.meta.env.BASE_URL}assets/tools-bg.png`,
-  },
-  {
-    id: 'electronics-03',
-    titleKey: 'projects.items.electronics03.title',
-    descriptionKey: 'projects.items.electronics03.description',
-    category: 'Eletrônica',
-    image: `${import.meta.env.BASE_URL}assets/aboutme-bg.png`,
-  },
-];
-
 /* ============================================= */
 
 const CATEGORY_ALL = 'all';
 const DRAG_THRESHOLD = 40; // px needed to trigger navigation
 
 const Projects: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [activeFilter, setActiveFilter] = useState(CATEGORY_ALL);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -223,16 +118,6 @@ const Projects: React.FC = () => {
   };
 
   // ── Helpers ──────────────────────────────
-  const resolveText = (key: string): string => {
-    const parts = key.split('.');
-    let obj: any = t;
-    for (const part of parts) {
-      if (obj === undefined) return key;
-      obj = obj[part];
-    }
-    return typeof obj === 'string' ? obj : key;
-  };
-
   const categoryLabel = (cat: string) =>
     cat === CATEGORY_ALL ? (t as any).projects?.all ?? 'All' : cat;
 
@@ -296,6 +181,8 @@ const Projects: React.FC = () => {
               const isCenter = offset === 0;
               const isVisible = Math.abs(offset) <= 1;
               const color = getCategoryColor(project.category);
+              
+              const { title, description } = project.translations[language];
 
               return (
                 <div
@@ -310,7 +197,7 @@ const Projects: React.FC = () => {
                   <div className="project-card-image-wrapper">
                     <img
                       src={project.image}
-                      alt={resolveText(project.titleKey)}
+                      alt={title}
                       className="project-card-image"
                       draggable={false}
                     />
@@ -330,10 +217,10 @@ const Projects: React.FC = () => {
 
                   <div className="project-card-body">
                     <h3 className="project-card-title">
-                      {resolveText(project.titleKey)}
+                      {title}
                     </h3>
                     <p className="project-card-description">
-                      {resolveText(project.descriptionKey)}
+                      {description}
                     </p>
                     {project.link && isCenter && (
                       <a

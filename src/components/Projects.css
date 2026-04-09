@@ -151,7 +151,6 @@
   opacity: calc(1 - abs(var(--offset, 0)) * 0.45);
   z-index: calc(10 - abs(var(--offset, 0)));
   cursor: url("/assets/cursor/pointer.svg"), pointer;
-  backdrop-filter: blur(10px);
 }
 
 @media (min-width: 768px) {
@@ -173,9 +172,10 @@
 .project-card--active {
   border-color: color-mix(in srgb, var(--color-ocean-500) 40%, transparent);
   box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--color-ocean-500) 20%, transparent),
+    0 0 25px 0px color-mix(in srgb, var(--color-ocean-500) 20%, transparent),
     0 24px 64px rgba(0, 0, 0, 0.5);
   cursor: default;
+  backdrop-filter: blur(10px);
 }
 
 .project-card--hidden {
@@ -352,6 +352,7 @@
 }
 
 @media (min-width: 1024px) {
+
   /* card is min(44vw, 640px) — half = min(22vw, 320px) */
   .projects-arrow--prev {
     left: calc(50% - min(22vw, 320px) - 3.75rem);
