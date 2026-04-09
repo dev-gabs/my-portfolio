@@ -34,12 +34,6 @@
   opacity: 0.5;
 }
 
-@media (max-width: 768px) {
-  .hero-bg {
-    opacity: 0.2;
-  }
-}
-
 @media (min-width: 1024px) {
   .hero-bg {
     background-position: center center;

@@ -99,11 +99,11 @@ const OrbitalNode: React.FC<OrbitalNodeProps> = ({ position, label }) => {
           onPointerOver={(e) => {
             e.stopPropagation();
             setHovered(true);
-            document.body.style.cursor = 'pointer';
+            document.body.style.cursor = 'url("/assets/cursor/pointer.svg"), pointer';
           }}
           onPointerOut={() => {
             setHovered(false);
-            document.body.style.cursor = 'grab'; // Fallback to container default
+            document.body.style.cursor = ''; // Reset to allow CSS default
           }}
         >
           {label}
@@ -230,11 +230,11 @@ const SphereContent: React.FC = () => {
           onPointerOver={(e) => {
             e.stopPropagation();
             setCenterHover(true);
-            document.body.style.cursor = 'pointer';
+            document.body.style.cursor = 'url("/assets/cursor/pointer.svg"), pointer';
           }}
           onPointerOut={() => {
             setCenterHover(false);
-            document.body.style.cursor = 'grab';
+            document.body.style.cursor = '';
           }}
         >
           {t.hero.centerText}
@@ -283,7 +283,7 @@ const SphereContent: React.FC = () => {
 const ConstellationSphere: React.FC = () => {
   return (
     <div className="sphere-container">
-      <Canvas camera={{ position: [0, 0, 7], fov: 50 }}>
+      <Canvas camera={{ position: [0, 0, 8.5], fov: 50 }}>
         <Suspense fallback={null}>
           <SphereContent />
         </Suspense>

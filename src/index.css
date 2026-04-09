@@ -32,8 +32,32 @@
    BASE STYLES
    ======================================== */
 
-html {
+html,
+body {
   scroll-behavior: smooth;
+  cursor: url("/assets/cursor/cursor.svg"), auto;
+}
+
+/* Custom Cursors for interactive elements */
+a,
+button,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+select,
+label,
+summary,
+.cursor-pointer {
+  cursor: url("/assets/cursor/pointer.svg"), pointer;
+}
+
+.cursor-grab {
+  cursor: url("/assets/cursor/grab.svg"), grab;
+}
+
+.cursor-grabbing {
+  cursor: url("/assets/cursor/grabbing.svg"), grabbing;
 }
 
 body {
