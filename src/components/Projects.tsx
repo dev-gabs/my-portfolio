@@ -4,16 +4,17 @@ import { useLanguage } from '../context/LanguageContext';
 import SectionHeader from './SectionHeader';
 import { PROJECTS } from '../data/projects';
 import './Projects.css';
+import BackgroundStars from './BackgroundStars';
 
 /* =============================================
    CATEGORY COLORS
    Add a color for each category slug here.
    ============================================= */
 const CATEGORY_COLORS: Record<string, { bg: string; border: string; text: string }> = {
-  'Legal Design':  { bg: 'rgba(167,139,250,0.15)', border: 'rgba(167,139,250,0.4)',  text: '#c4b5fd' },
-  'UI/UX':         { bg: 'rgba(56,189,248,0.12)',  border: 'rgba(56,189,248,0.35)',  text: '#7dd3fc' },
-  'Modelagem 3D':  { bg: 'rgba(52,211,153,0.12)',  border: 'rgba(52,211,153,0.35)',  text: '#6ee7b7' },
-  'Eletrônica':    { bg: 'rgba(251,146,60,0.13)',  border: 'rgba(251,146,60,0.4)',   text: '#fdba74' },
+  'Legal Design': { bg: 'rgba(167,139,250,0.15)', border: 'rgba(167,139,250,0.4)', text: '#c4b5fd' },
+  'UI/UX': { bg: 'rgba(56,189,248,0.12)', border: 'rgba(56,189,248,0.35)', text: '#7dd3fc' },
+  'Modelagem 3D': { bg: 'rgba(52,211,153,0.12)', border: 'rgba(52,211,153,0.35)', text: '#6ee7b7' },
+  'Eletrônica': { bg: 'rgba(251,146,60,0.13)', border: 'rgba(251,146,60,0.4)', text: '#fdba74' },
 };
 
 /* ============================================= */
@@ -128,6 +129,9 @@ const Projects: React.FC = () => {
 
   return (
     <section className="projects-section" id="projects">
+      {/* Dynamic Background */}
+      <BackgroundStars />
+
       <div className="projects-container">
 
         <SectionHeader
@@ -175,13 +179,13 @@ const Projects: React.FC = () => {
             {filtered.map((project, idx) => {
               // Shortest circular offset
               let offset = idx - currentIndex;
-              if (offset > len / 2)  offset -= len;
+              if (offset > len / 2) offset -= len;
               if (offset < -len / 2) offset += len;
 
               const isCenter = offset === 0;
               const isVisible = Math.abs(offset) <= 1;
               const color = getCategoryColor(project.category);
-              
+
               const { title, description } = project.translations[language];
 
               return (

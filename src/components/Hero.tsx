@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import ConstellationSphere from './ConstellationSphere';
+import BackgroundStars from './BackgroundStars';
 
 const Hero: React.FC = () => {
   const { t } = useLanguage();
@@ -56,12 +57,8 @@ const Hero: React.FC = () => {
 
   return (
     <section className="hero" id="home">
-      {/* Background Image Setup */}
-      <div
-        className="hero-bg"
-        style={{ backgroundImage: `url('${import.meta.env.BASE_URL}assets/hero-bg.jpg')` }}
-      >
-      </div>
+      {/* Dynamic Background */}
+      <BackgroundStars />
 
       <div className="hero-content-wrapper">
         <div className="hero-content">
