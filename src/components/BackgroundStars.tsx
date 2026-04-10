@@ -1,5 +1,5 @@
 import React, { useRef, useMemo } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { Stars, Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
@@ -17,7 +17,7 @@ const StarFieldContent: React.FC = () => {
     return [pos];
   }, []);
 
-  useFrame((state) => {
+  useFrame(() => {
     // Constant slow rotation for "life"
     pointsRef.current.rotation.z += 0.0004;
   });
