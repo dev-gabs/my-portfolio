@@ -5,7 +5,6 @@ import * as THREE from 'three';
 
 const StarFieldContent: React.FC = () => {
   const pointsRef = useRef<THREE.Points>(null!);
-  const { mouse } = useThree();
 
   // Create random points for a custom more "contrasty" layer
   const [positions] = useMemo(() => {
