@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import {
   IconHistory,
   IconCircleFilled,
@@ -21,6 +21,58 @@ const getCategoryIcon = (category: string) => {
   return <IconCircleFilled size={14} />;
 };
 
+// Individual milestone with staggered scroll reveal
+const MilestoneItem: React.FC<{
+  milestone: (typeof STORY_MILESTONES)[number];
+  idx: number;
+  language: string;
+}> = ({ milestone, idx, language }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const isEven = idx % 2 === 0;
+  const { title, description } = milestone.translations[language as 'en' | 'pt'];
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add('story-milestone-item--visible');
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={`story-milestone-item ${isEven ? 'item-left' : 'item-right'}`}
+      style={{ '--milestone-delay': `${idx * 0.08}s` } as React.CSSProperties}
+    >
+      {/* Node on the line */}
+      <div className="story-node">
+        <div className="story-node-inner">
+          {getCategoryIcon(milestone.category)}
+        </div>
+      </div>
+
+      {/* Card */}
+      <div className="story-content-card">
+        <div className="story-header">
+          <span className="story-year">{milestone.year}</span>
+          <span className="story-category">{milestone.category}</span>
+        </div>
+        <h3 className="story-title">{title}</h3>
+        <p className="story-description">{description}</p>
+      </div>
+    </div>
+  );
+};
+
 const Story: React.FC = () => {
   const { t, language } = useLanguage();
 
@@ -37,34 +89,14 @@ const Story: React.FC = () => {
           <div className="story-timeline-line" />
 
           <div className="story-milestones">
-            {STORY_MILESTONES.map((milestone, idx) => {
-              const { title, description } = milestone.translations[language];
-              const isEven = idx % 2 === 0;
-
-              return (
-                <div
-                  key={milestone.id}
-                  className={`story-milestone-item ${isEven ? 'item-left' : 'item-right'}`}
-                >
-                  {/* The Node on the line */}
-                  <div className="story-node">
-                    <div className="story-node-inner">
-                      {getCategoryIcon(milestone.category)}
-                    </div>
-                  </div>
-
-                  {/* The Card */}
-                  <div className="story-content-card">
-                    <div className="story-header">
-                      <span className="story-year">{milestone.year}</span>
-                      <span className="story-category">{milestone.category}</span>
-                    </div>
-                    <h3 className="story-title">{title}</h3>
-                    <p className="story-description">{description}</p>
-                  </div>
-                </div>
-              );
-            })}
+            {STORY_MILESTONES.map((milestone, idx) => (
+              <MilestoneItem
+                key={milestone.id}
+                milestone={milestone}
+                idx={idx}
+                language={language}
+              />
+            ))}
           </div>
         </div>
       </div>

@@ -4,7 +4,6 @@ import { useLanguage } from '../context/LanguageContext';
 import SectionHeader from './SectionHeader';
 import { PROJECTS } from '../data/projects';
 import './Projects.css';
-import BackgroundStars from './BackgroundStars';
 
 /* =============================================
    CATEGORY COLORS
@@ -130,7 +129,6 @@ const Projects: React.FC = () => {
   return (
     <section className="projects-section" id="projects">
       {/* Dynamic Background */}
-      <BackgroundStars />
 
       <div className="projects-container">
 

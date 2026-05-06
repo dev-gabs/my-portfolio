@@ -12,12 +12,12 @@ const AboutMe: React.FC = () => {
       className="about-section"
     >
       {/* Masked Background exactly following the wave */}
-      <div 
-        className="about-masked-bg" 
-        style={{ backgroundImage: `url('${import.meta.env.BASE_URL}assets/aboutme-bg.png')` }} 
+      <div
+        className="about-masked-bg"
+        style={{ backgroundImage: `url('${import.meta.env.BASE_URL}assets/aboutme-bg.png')` }}
       />
       <HeroWaves />
-      
+
       <div className="about-container">
 
         {/* Left Text Content */}

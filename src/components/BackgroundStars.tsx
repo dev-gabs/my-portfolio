@@ -26,9 +26,9 @@ const StarFieldContent: React.FC = () => {
     <group>
       {/* Base deep stars layer from Drei */}
       <Stars
-        radius={100}
-        depth={50}
-        count={5000}
+        radius={50}
+        depth={30}
+        count={3000}
         factor={4}
         saturation={0}
         fade

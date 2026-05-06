@@ -10,7 +10,6 @@
   background-position: center;
   background-repeat: no-repeat;
   border-bottom: 3px solid var(--color-warm-200);
-
 }
 
 /* ---------------------------------------- */
@@ -35,9 +34,6 @@
 
 /* ---------------------------------------- */
 
-
-/* ---------------------------------------- */
-
 .tools-grid {
   display: grid;
   gap: 3rem;
@@ -59,10 +55,41 @@
 
 /* ---------------------------------------- */
 
+/* STAGGERED ENTRANCE ANIMATION */
+
 .tools-category {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+
+  /* Hidden before scroll triggers */
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.5s ease calc(var(--cat-delay, 0s)),
+    transform 0.5s ease calc(var(--cat-delay, 0s));
+}
+
+.tools-category--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Individual card stagger within the category */
+.tools-category--visible .tool-card {
+  animation: toolCardIn 0.4s ease both;
+  animation-delay: calc(var(--cat-delay, 0s) + var(--card-delay, 0s));
+}
+
+@keyframes toolCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 /* ---------------------------------------- */
@@ -93,12 +120,89 @@
 /* ---------------------------------------- */
 
 .tool-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
   cursor: url("/assets/cursor/pointer.svg"), pointer;
   text-align: center;
+}
+
+/* ---------------------------------------- */
+
+/* TOOLTIP */
+
+.tool-tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  z-index: 100;
+
+  background: linear-gradient(
+    135deg,
+    rgba(27, 38, 59, 0.95),
+    rgba(13, 27, 42, 0.98)
+  );
+  border: 1px solid rgba(171, 196, 227, 0.2);
+  border-radius: 0.6rem;
+  padding: 0.5rem 0.75rem;
+  width: max-content;
+  max-width: 160px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+
+  backdrop-filter: blur(12px);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(171, 196, 227, 0.06);
+
+  /* Hidden by default */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+/* Small arrow pointing down */
+.tool-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: rgba(27, 38, 59, 0.95);
+}
+
+.tool-tooltip--visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.tool-tooltip-name {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--color-ocean-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tool-tooltip-desc {
+  font-size: 0.7rem;
+  font-weight: 300;
+  color: color-mix(in srgb, var(--color-alabaster) 80%, transparent);
+  line-height: 1.4;
+}
+
+/* Keep tooltip inside viewport on edge cards */
+@media (max-width: 767px) {
+  .tool-tooltip {
+    max-width: 140px;
+  }
 }
 
 /* ---------------------------------------- */
@@ -112,7 +216,7 @@
   border-radius: 0.8rem;
   background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
   border: 1px solid rgba(255, 255, 255, 0.05);
-  transition: background-color 300ms ease, transform 300ms ease;
+  transition: background-color 300ms ease, transform 300ms ease, border-color 300ms ease;
   overflow: hidden;
 }
 
@@ -125,12 +229,15 @@
   transition: transform 300ms ease;
 }
 
-.tool-card:hover .tool-svg-icon {
+.tool-card:hover .tool-svg-icon,
+.tool-card--active .tool-svg-icon {
   transform: scale(1.1);
 }
 
-.tool-card:hover .tool-icon-wrapper {
+.tool-card:hover .tool-icon-wrapper,
+.tool-card--active .tool-icon-wrapper {
   background-color: rgba(255, 255, 255, 0.10);
+  border-color: rgba(171, 196, 227, 0.2);
   transform: scale(1.05);
 }
 
@@ -154,6 +261,7 @@
   max-width: 100%;
 }
 
-.tool-card:hover .tool-name {
+.tool-card:hover .tool-name,
+.tool-card--active .tool-name {
   color: var(--color-alabaster);
 }

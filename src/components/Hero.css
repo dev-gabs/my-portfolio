@@ -12,6 +12,7 @@
   display: flex;
   align-items: center;
   background-color: var(--color-portfolio-bg);
+  overflow: hidden; /* Prevent background stars from leaking */
   /* The wavy divider replaces the static border */
 }
 

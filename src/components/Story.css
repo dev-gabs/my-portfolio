@@ -46,6 +46,21 @@
   align-items: center;
   position: relative;
   width: 100%;
+
+  /* Hidden before intersection */
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.55s ease calc(var(--milestone-delay, 0s)),
+    transform 0.55s ease calc(var(--milestone-delay, 0s));
+}
+
+.story-milestone-item.item-left  { transform: translateX(-32px); }
+.story-milestone-item.item-right { transform: translateX(32px); }
+
+.story-milestone-item--visible {
+  opacity: 1;
+  transform: translate(0, 0) !important;
 }
 
 /* Nodes on the line */
@@ -93,12 +108,10 @@
 
 .story-milestone-item.item-left .story-content-card {
   margin-right: auto;
-  transform: translateX(-10px);
 }
 
 .story-milestone-item.item-right .story-content-card {
   margin-left: auto;
-  transform: translateX(10px);
 }
 
 .story-content-card:hover {

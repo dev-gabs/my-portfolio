@@ -1,17 +1,36 @@
-import React, { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { IconMail, IconSend, IconUser, IconAt } from '@tabler/icons-react';
 import { useLanguage } from '../context/LanguageContext';
 import SectionHeader from './SectionHeader';
 import './Contact.css';
 
+function useReveal(delay = 0) {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => el.classList.add('reveal--visible'), delay);
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [delay]);
+  return ref;
+}
+
 const Contact: React.FC = () => {
   const { t } = useLanguage();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+
+  const headerRef = useReveal(0);
+  const cardRef = useReveal(120);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -21,17 +40,12 @@ const Contact: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('sending');
-    
     try {
       const response = await fetch('https://formspree.io/f/mvzvnylv', {
         method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
-
       if (response.ok) {
         setStatus('success');
         setFormData({ name: '', email: '', message: '' });
@@ -50,77 +64,51 @@ const Contact: React.FC = () => {
   return (
     <section className="contact-section" id="contact">
       <div className="contact-container">
-        <SectionHeader 
-          icon={<IconMail />} 
-          title={contactT.title} 
-        />
 
-        <div className="contact-card">
+        <div ref={headerRef} className="reveal reveal--from-bottom">
+          <SectionHeader icon={<IconMail />} title={contactT.title} />
+        </div>
+
+        <div ref={cardRef} className="contact-card reveal reveal--from-bottom">
           <form className="contact-form" onSubmit={handleSubmit}>
             <div className="contact-grid">
-              {/* Name Field */}
+              {/* Name */}
               <div className="input-group">
                 <label htmlFor="name" className="input-label">
-                  <IconUser size={16} />
-                  {contactT.nameLabel}
+                  <IconUser size={16} /> {contactT.nameLabel}
                 </label>
                 <div className="input-wrapper">
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    placeholder=" "
-                    className="contact-input"
-                  />
+                  <input type="text" id="name" name="name" value={formData.name}
+                    onChange={handleChange} required placeholder=" " className="contact-input" />
                 </div>
               </div>
 
-              {/* Email Field */}
+              {/* Email */}
               <div className="input-group">
                 <label htmlFor="email" className="input-label">
-                  <IconAt size={16} />
-                  {contactT.emailLabel}
+                  <IconAt size={16} /> {contactT.emailLabel}
                 </label>
                 <div className="input-wrapper">
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    placeholder=" "
-                    className="contact-input"
-                  />
+                  <input type="email" id="email" name="email" value={formData.email}
+                    onChange={handleChange} required placeholder=" " className="contact-input" />
                 </div>
               </div>
             </div>
 
-            {/* Message Field */}
+            {/* Message */}
             <div className="input-group">
               <label htmlFor="message" className="input-label">
-                <IconMail size={16} />
-                {contactT.messageLabel}
+                <IconMail size={16} /> {contactT.messageLabel}
               </label>
               <div className="input-wrapper">
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={5}
-                  placeholder=" "
-                  className="contact-input contact-textarea"
-                />
+                <textarea id="message" name="message" value={formData.message}
+                  onChange={handleChange} required rows={5} placeholder=" "
+                  className="contact-input contact-textarea" />
               </div>
             </div>
 
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className={`contact-submit-btn${status === 'sending' ? ' sending' : ''}`}
               disabled={status === 'sending'}
             >
@@ -131,14 +119,11 @@ const Contact: React.FC = () => {
               <div className="btn-glow" />
             </button>
 
-            {status === 'success' && (
-              <p className="contact-status success">{contactT.success}</p>
-            )}
-            {status === 'error' && (
-              <p className="contact-status error">{contactT.error}</p>
-            )}
+            {status === 'success' && <p className="contact-status success">{contactT.success}</p>}
+            {status === 'error' && <p className="contact-status error">{contactT.error}</p>}
           </form>
         </div>
+
       </div>
     </section>
   );
